@@ -9,6 +9,10 @@
                 "-g",
                 "lab1.cpp",
                 "rect.cpp",
+                "barrel.cpp",
+                "matrix.cpp",
+                "mystring.cpp",
+                "textwrapper.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

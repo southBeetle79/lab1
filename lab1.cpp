@@ -44,6 +44,10 @@
 
 #include <iostream>
 #include "rect.hpp"
+#include "barrel.hpp"
+#include "matrix.hpp"
+#include "mystring.hpp"
+#include "textwrapper.hpp"
 using namespace std;
 
 int main()
@@ -352,16 +356,23 @@ int main()
      * блоке превратиться в настоящий код и решить задачу.
      */
 
-    /* {
-        Bochka alch(...); // бочка со спиртом
-        Bochka water(...);
+    {
+        Barrel alch(100.0, 0.96);
+        Barrel water(100.0, 0.0);
+        
+        double cup = 1.0;
+        int iterrations = 0;
 
-        while(концентрация спирта в бочке alch > 50%)
-        {
-            alch.<перелить из>(water, ...);
-            water.<перелить из>(alch, ...);
+        while(alch.get_concentration_percent() > 50.0){
+            iterrations++;
+
+            alch.pour_from(water, cup);
+            water.pour_from(alch, cup);
+
+            cout << "Step" << iterrations << ":" << alch.get_concentration_percent() << "%" << endl;
         }
-    } */
+        cout << "Final iterration:" << iterrations << endl;
+    } 
 
     /**
      * Задание 2.2. Объект как математическая сущность.
@@ -398,7 +409,19 @@ int main()
      */
 
     {
+        int n = 10;
 
+        Matrix T(2, 2);
+        T.set(0, 0, 1); T.set(0, 1, 1);
+        T.set(1, 0, 1); T.set(1, 1, 0);
+
+        Matrix result(2);
+
+        for( int i = 0; i < n; i++){
+            result = result.multiply(T);
+        }
+
+        cout << n << "-e chislo Fibonachi: " << result.get(0, 1) << endl;
     }
 
     /**
@@ -438,19 +461,29 @@ int main()
      */
 
     {
+        MyString s;
+        cout << "Enter a string: ";
+        s.read_line();
+        s.print();
 
+        s.set(0, '!');
+        s.print();
+
+        s.set_new_string("New content");
+        cout << "After update: ";
+        s.print();
     }
 
     /**
      * Проверьте, что ваша строка корректно работает в следующих ситуациях.
      */
 
-    /* {
+    {
         MyString s1;
         MyString s2 = s1;
         MyString s3("This is my string");
         MyString s4 = s3;
-    } */
+    } 
 
     /**
      * Задание 2.4. Объект-алгоритм.
@@ -471,13 +504,13 @@ int main()
      * Примерное использование класса приведено ниже.
      */
 
-    /* {
+    {
         int line_width = 40;
         MyString input;
         input.read_line();
         TextWrapper wrapper(input, line_width);
         wrapper.print_wrapped();
-    } */
+    } 
 
     /**
      * Задание 3. Сборка проекта, Make-файлы.
